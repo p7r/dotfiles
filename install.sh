@@ -328,7 +328,7 @@ sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -int 1
 #launchctl load /System/Library/LaunchAgents/com.apple.alf.useragent.plist
 
 # Disable IR remote control
-#sudo defaults write /Library/Preferences/com.apple.driver.AppleIRController DeviceEnabled -bool false
+sudo defaults write /Library/Preferences/com.apple.driver.AppleIRController DeviceEnabled -bool false
 
 # Turn Bluetooth off completely
 #sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 0
@@ -351,8 +351,8 @@ sudo systemsetup -setwakeonmodem off
 sudo systemsetup -setwakeonnetworkaccess off
 
 # Disable file-sharing via AFP or SMB
-# sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.AppleFileServer.plist
-# sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.smbd.plist
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.AppleFileServer.plist
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.smbd.plist
 
 # Display login window as name and password
 #sudo defaults write /Library/Preferences/com.apple.loginwindow SHOWFULLNAME -bool true
@@ -371,27 +371,27 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -boo
 #sudo pmset destroyfvkeyonstandby 1
 
 # Disable Bonjour multicast advertisements
-#sudo defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool true
+sudo defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool true
 
 # Disable the crash reporter
-#defaults write com.apple.CrashReporter DialogType -string "none"
+defaults write com.apple.CrashReporter DialogType -string "none"
 
 # Disable diagnostic reports
-#sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.SubmitDiagInfo.plist
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.SubmitDiagInfo.plist
 
 # Log authentication events for 90 days
-#sudo perl -p -i -e 's/rotate=seq file_max=5M all_max=20M/rotate=utc file_max=5M ttl=90/g' "/etc/asl/com.apple.authd"
+sudo perl -p -i -e 's/rotate=seq file_max=5M all_max=20M/rotate=utc file_max=5M ttl=90/g' "/etc/asl/com.apple.authd"
 
 # Log installation events for a year
-#sudo perl -p -i -e 's/format=bsd/format=bsd mode=0640 rotate=utc compress file_max=5M ttl=365/g' "/etc/asl/com.apple.install"
+sudo perl -p -i -e 's/format=bsd/format=bsd mode=0640 rotate=utc compress file_max=5M ttl=365/g' "/etc/asl/com.apple.install"
 
 # Increase the retention time for system.log and secure.log
-#sudo perl -p -i -e 's/\/var\/log\/wtmp.*$/\/var\/log\/wtmp   \t\t\t640\ \ 31\    *\t\@hh24\ \J/g' "/etc/newsyslog.conf"
+sudo perl -p -i -e 's/\/var\/log\/wtmp.*$/\/var\/log\/wtmp   \t\t\t640\ \ 31\    *\t\@hh24\ \J/g' "/etc/newsyslog.conf"
 
 # Keep a log of kernel events for 30 days
-#sudo perl -p -i -e 's|flags:lo,aa|flags:lo,aa,ad,fd,fm,-all,^-fa,^-fc,^-cl|g' /private/etc/security/audit_control
-#sudo perl -p -i -e 's|filesz:2M|filesz:10M|g' /private/etc/security/audit_control
-#sudo perl -p -i -e 's|expire-after:10M|expire-after: 30d |g' /private/etc/security/audit_control
+sudo perl -p -i -e 's|flags:lo,aa|flags:lo,aa,ad,fd,fm,-all,^-fa,^-fc,^-cl|g' /private/etc/security/audit_control
+sudo perl -p -i -e 's|filesz:2M|filesz:10M|g' /private/etc/security/audit_control
+sudo perl -p -i -e 's|expire-after:10M|expire-after: 30d |g' /private/etc/security/audit_control
 
 # Disable the “Are you sure you want to open this application?” dialog
 defaults write com.apple.LaunchServices LSQuarantine -bool false
@@ -414,17 +414,17 @@ running "…and make sure it can’t be rewritten"
 sudo chflags uchg /Private/var/vm/sleepimage;ok
 
 #running "Disable the sudden motion sensor as it’s not useful for SSDs"
-# sudo pmset -a sms 0;ok
+sudo pmset -a sms 0;ok
 
 ################################################
 # Optional / Experimental                      #
 ################################################
 
-# running "Set computer name (as done via System Preferences → Sharing)"
-# sudo scutil --set ComputerName "antic"
-# sudo scutil --set HostName "antic"
-# sudo scutil --set LocalHostName "antic"
-# sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "antic"
+running "Set computer name (as done via System Preferences → Sharing)"
+sudo scutil --set ComputerName "p7r"
+sudo scutil --set HostName "p7r"
+sudo scutil --set LocalHostName "p7r"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "p7r"
 
 # running "Disable smooth scrolling"
 # (Uncomment if you’re on an older Mac that messes up the animation)
@@ -440,37 +440,37 @@ sudo chflags uchg /Private/var/vm/sleepimage;ok
 # # See https://github.com/mathiasbynens/dotfiles/issues/237
 # echo "0x08000100:0" > ~/.CFUserTextEncoding;ok
 
-# running "Stop iTunes from responding to the keyboard media keys"
-# launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null;ok
+running "Stop iTunes from responding to the keyboard media keys"
+launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null;ok
 
-# running "Show icons for hard drives, servers, and removable media on the desktop"
-# defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-# defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
-# defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
-# defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true;ok
+running "Show icons for hard drives, servers, and removable media on the desktop"
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true;ok
 
 # running "Enable the MacBook Air SuperDrive on any Mac"
 # sudo nvram boot-args="mbasd=1";ok
 
-# running "Remove Dropbox’s green checkmark icons in Finder"
-# file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
-# [ -e "${file}" ] && mv -f "${file}" "${file}.bak";ok
+running "Remove Dropbox’s green checkmark icons in Finder"
+file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
+[ -e "${file}" ] && mv -f "${file}" "${file}.bak";ok
 
 # running "Wipe all (default) app icons from the Dock"
 # # This is only really useful when setting up a new Mac, or if you don’t use
 # # the Dock to launch apps.
 # defaults write com.apple.dock persistent-apps -array "";ok
 
-#running "Enable the 2D Dock"
-#defaults write com.apple.dock no-glass -bool true;ok
+running "Enable the 2D Dock"
+defaults write com.apple.dock no-glass -bool true;ok
 
-#running "Disable the Launchpad gesture (pinch with thumb and three fingers)"
-#defaults write com.apple.dock showLaunchpadGestureEnabled -int 0;ok
+running "Disable the Launchpad gesture (pinch with thumb and three fingers)"
+defaults write com.apple.dock showLaunchpadGestureEnabled -int 0;ok
 
-#running "Add a spacer to the left side of the Dock (where the applications are)"
-#defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}';ok
-#running "Add a spacer to the right side of the Dock (where the Trash is)"
-#defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}';ok
+running "Add a spacer to the left side of the Dock (where the applications are)"
+defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}';ok
+running "Add a spacer to the right side of the Dock (where the Trash is)"
+defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}';ok
 
 
 ################################################
@@ -491,25 +491,25 @@ sudo nvram SystemAudioVolume=" ";ok
 running "Menu bar: disable transparency"
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false;ok
 
-running "Menu bar: hide the Time Machine, Volume, User, and Bluetooth icons"
-for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
-  defaults write "${domain}" dontAutoLoad -array \
-    "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-    "/System/Library/CoreServices/Menu Extras/Volume.menu" \
-    "/System/Library/CoreServices/Menu Extras/User.menu"
-done;
-defaults write com.apple.systemuiserver menuExtras -array \
-  "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
-  "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-  "/System/Library/CoreServices/Menu Extras/Battery.menu" \
-  "/System/Library/CoreServices/Menu Extras/Clock.menu"
-ok
+#running "Menu bar: hide the Time Machine, Volume, User, and Bluetooth icons"
+#for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
+#  defaults write "${domain}" dontAutoLoad -array \
+#    "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
+#    "/System/Library/CoreServices/Menu Extras/Volume.menu" \
+#    "/System/Library/CoreServices/Menu Extras/User.menu"
+#done;
+#defaults write com.apple.systemuiserver menuExtras -array \
+#  "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+#  "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+#  "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+#  "/System/Library/CoreServices/Menu Extras/Clock.menu"
+#ok
 
-running "Set highlight color to green"
-defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600";ok
+#running "Set highlight color to green"
+#defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600";ok
 
-running "Set sidebar icon size to medium"
-defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2;ok
+#running "Set sidebar icon size to medium"
+#defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2;ok
 
 running "Always show scrollbars"
 defaults write NSGlobalDomain AppleShowScrollBars -string "Always";ok
@@ -526,8 +526,8 @@ running "Expand print panel by default"
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true;ok
 
-running "Save to disk (not to iCloud) by default"
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false;ok
+#running "Save to disk (not to iCloud) by default"
+#defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false;ok
 
 running "Automatically quit printer app once the print jobs complete"
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true;ok
@@ -577,19 +577,19 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false;ok
 bot "Trackpad, mouse, keyboard, Bluetooth accessories, and input"
 ###############################################################################
 
-running "Trackpad: enable tap to click for this user and for the login screen"
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1;ok
+#running "Trackpad: enable tap to click for this user and for the login screen"
+#defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+#defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+#defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1;ok
 
-running "Trackpad: map bottom right corner to right-click"
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true;ok
+#running "Trackpad: map bottom right corner to right-click"
+#defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+#defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+#defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
+#defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true;ok
 
-running "Disable 'natural' (Lion-style) scrolling"
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false;ok
+#running "Disable 'natural' (Lion-style) scrolling"
+#defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false;ok
 
 running "Increase sound quality for Bluetooth headphones/headsets"
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40;ok
@@ -610,14 +610,14 @@ running "Set a blazingly fast keyboard repeat rate"
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 10;ok
 
-running "Set language and text formats (english/US)"
-defaults write NSGlobalDomain AppleLanguages -array "en"
-defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
-defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
-defaults write NSGlobalDomain AppleMetricUnits -bool true;ok
+#running "Set language and text formats (english/US)"
+#defaults write NSGlobalDomain AppleLanguages -array "en"
+#defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
+#defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
+#defaults write NSGlobalDomain AppleMetricUnits -bool true;ok
 
-running "Disable auto-correct"
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false;ok
+#running "Disable auto-correct"
+#defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false;ok
 
 ###############################################################################
 bot "Configuring the Screen"
@@ -692,10 +692,10 @@ defaults write NSGlobalDomain com.apple.springing.delay -float 0;ok
 running "Avoid creating .DS_Store files on network volumes"
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true;ok
 
-running "Disable disk image verification"
-defaults write com.apple.frameworks.diskimages skip-verify -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true;ok
+#running "Disable disk image verification"
+#defaults write com.apple.frameworks.diskimages skip-verify -bool true
+#defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
+#defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true;ok
 
 running "Automatically open a new Finder window when a volume is mounted"
 defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
@@ -796,15 +796,15 @@ bot "Configuring Hot Corners"
 # 11: Launchpad
 # 12: Notification Center
 
-running "Top left screen corner → Mission Control"
-defaults write com.apple.dock wvous-tl-corner -int 2
-defaults write com.apple.dock wvous-tl-modifier -int 0;ok
-running "Top right screen corner → Desktop"
-defaults write com.apple.dock wvous-tr-corner -int 4
+#running "Top left screen corner → Mission Control"
+#defaults write com.apple.dock wvous-tl-corner -int 2
+#defaults write com.apple.dock wvous-tl-modifier -int 0;ok
+running "Top right screen corner → Put Display to Sleep"
+defaults write com.apple.dock wvous-tr-corner -int 10
 defaults write com.apple.dock wvous-tr-modifier -int 0;ok
-running "Bottom right screen corner → Start screen saver"
-defaults write com.apple.dock wvous-br-corner -int 5
-defaults write com.apple.dock wvous-br-modifier -int 0;ok
+#running "Bottom right screen corner → Start screen saver"
+#defaults write com.apple.dock wvous-br-corner -int 5
+#defaults write com.apple.dock wvous-br-modifier -int 0;ok
 
 ###############################################################################
 bot "Configuring Safari & WebKit"
@@ -816,8 +816,8 @@ defaults write com.apple.Safari HomePage -string "about:blank";ok
 running "Prevent Safari from opening ‘safe’ files automatically after downloading"
 defaults write com.apple.Safari AutoOpenSafeDownloads -bool false;ok
 
-running "Allow hitting the Backspace key to go to the previous page in history"
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true;ok
+#running "Allow hitting the Backspace key to go to the previous page in history"
+#defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true;ok
 
 running "Hide Safari’s bookmarks bar by default"
 defaults write com.apple.Safari ShowFavoritesBar -bool false;ok
@@ -854,8 +854,8 @@ running "Disable send and reply animations in Mail.app"
 defaults write com.apple.mail DisableReplyAnimations -bool true
 defaults write com.apple.mail DisableSendAnimations -bool true;ok
 
-running "Copy email addresses as 'foo@example.com' instead of 'Foo Bar <foo@example.com>' in Mail.app"
-defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false;ok
+#running "Copy email addresses as 'foo@example.com' instead of 'Foo Bar <foo@example.com>' in Mail.app"
+#defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false;ok
 
 running "Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app"
 defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" -string "@\\U21a9";ok
@@ -868,8 +868,8 @@ defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -stri
 running "Disable inline attachments (just show the icons)"
 defaults write com.apple.mail DisableInlineAttachmentViewing -bool true;ok
 
-running "Disable automatic spell checking"
-defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled";ok
+#running "Disable automatic spell checking"
+#defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled";ok
 
 ###############################################################################
 bot "Spotlight"
@@ -927,10 +927,10 @@ bot "Terminal & iTerm2"
 # i.e. hover over a window and start `typing in it without clicking first
 defaults write com.apple.terminal FocusFollowsMouse -bool true
 #defaults write org.x.X11 wm_ffm -bool true;ok
-running "Installing the Solarized Light theme for iTerm (opening file)"
-open "./configs/Solarized Light.itermcolors";ok
-running "Installing the Patched Solarized Dark theme for iTerm (opening file)"
-open "./configs/Solarized Dark Patch.itermcolors";ok
+#running "Installing the Solarized Light theme for iTerm (opening file)"
+#open "./configs/Solarized Light.itermcolors";ok
+#running "Installing the Patched Solarized Dark theme for iTerm (opening file)"
+#open "./configs/Solarized Dark Patch.itermcolors";ok
 
 running "Don’t display the annoying prompt when quitting iTerm"
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false;ok
@@ -948,9 +948,9 @@ defaults write com.googlecode.iterm2 FocusFollowsMouse -int 1;
 defaults write com.googlecode.iterm2 HotkeyModifiers -int 262401;
 running "Make iTerm2 load new tabs in the same directory"
 /usr/libexec/PlistBuddy -c "set \"New Bookmarks\":0:\"Custom Directory\" Recycle" ~/Library/Preferences/com.googlecode.iterm2.plist
-running "setting fonts"
-defaults write com.googlecode.iterm2 "Normal Font" -string "Hack-Regular 12";
-defaults write com.googlecode.iterm2 "Non Ascii Font" -string "RobotoMonoForPowerline-Regular 12";
+#running "setting fonts"
+#defaults write com.googlecode.iterm2 "Normal Font" -string "Hack-Regular 12";
+#defaults write com.googlecode.iterm2 "Non Ascii Font" -string "RobotoMonoForPowerline-Regular 12";
 ok
 running "reading iterm settings"
 defaults read -app iTerm > /dev/null 2>&1;

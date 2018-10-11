@@ -191,6 +191,8 @@ require_brew zsh
 # use versions of packages installed with homebrew
 RUBY_CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl` --with-readline-dir=`brew --prefix readline` --with-libyaml-dir=`brew --prefix libyaml`"
 require_brew ruby
+# Golang
+require_brew golang
 # set zsh as the user login shell
 CURRENTSHELL=$(dscl . -read /Users/$USER UserShell | awk '{print $2}')
 if [[ "$CURRENTSHELL" != "/usr/local/bin/zsh" ]]; then
@@ -439,6 +441,9 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.serve
 # # Commented out, as this is known to cause problems in various Adobe apps :(
 # # See https://github.com/mathiasbynens/dotfiles/issues/237
 # echo "0x08000100:0" > ~/.CFUserTextEncoding;ok
+
+running "Switch to macOS Dark Mode"
+defaults write NSGlobalDomain AppleInterfaceStyle Dark
 
 running "Stop iTunes from responding to the keyboard media keys"
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null;ok

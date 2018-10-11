@@ -12,6 +12,8 @@ else
     set background=dark
 endif
 
+set autowrite
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -49,11 +51,13 @@ Plugin 'scrooloose/syntastic'
 Plugin 'millermedeiros/vim-esformatter'
 Plugin 'digitaltoad/vim-pug'
 " Plugin 'elzr/vim-json'
-" Plugin 'SirVer/ultisnips'
+Plugin 'SirVer/ultisnips'
 "Plugin 'sheerun/vim-polyglot'
 " plugins from http://vim-scripts.org/vim/scripts.html
 Plugin 'node.js'
 Plugin 'SuperTab'
+Plugin 'fatih/vim-go'
+Plugin 'AndrewRadev/splitjoin.vim'
 " Git plugin not hosted on GitHub
 " Plugin 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
@@ -280,6 +284,37 @@ noremap <leader>p :set paste<CR>:put  *<CR>:set nopaste<CR>
 " type \es to format
 nnoremap <silent> <leader>es :Esformatter<CR>
 vnoremap <silent> <leader>es :EsformatterVisual<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Golang
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+map <C-n> :cnext<CR>
+map <C-p> :cprev<CR>
+nnoremap <leader>a :close<CR>
+
+autocmd FileType go nmap <leader>r <Plug>(go-run)
+autocmd FileType go nmap <leader>t <Plug>(go-test)
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+
+let g:go_list_type = "quickfix"
+let g:go_fmt_command = "goimports"
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree

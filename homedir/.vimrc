@@ -1,10 +1,10 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Must Have
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme solarized
+" colorscheme solarized
 " syntax on " syntax highlighting on
 syntax enable
-let g:solarized_termtrans = 1
+" let g:solarized_termtrans = 1
 call togglebg#map("<F5>")
 if has('gui_running')
     set background=light
@@ -69,6 +69,17 @@ Plugin 'leafgarland/typescript-vim'
 " Vue.js
 Plugin 'posva/vim-vue'
 
+" Sort out colour schemes
+Plugin 'chriskempson/base16-vim'
+
+" Vimwiki and Taskwiki stuff
+
+Plugin 'vimwiki/vimwiki', { 'branch': 'dev' }
+Plugin 'tbabej/taskwiki'
+Plugin 'powerman/vim-plugin-AnsiEsc'
+Plugin 'majutsushi/tagbar'
+Plugin 'farseer90718/vim-taskwarrior'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -97,6 +108,8 @@ set ffs=unix,dos,mac " support all three, in this order
 set viminfo+=! " make sure it can save viminfo
 set isk+=_,$,@,%,# " none of these should be word dividers, so make them not be
 set nosol " leave my cursor where it was
+
+let base16colorspace=256  " Access colors present in 256 colorspace
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files/Backups/Sessions
@@ -170,8 +183,8 @@ set preserveindent " but above all -- follow the conventions laid before us
 set ignorecase " case insensitive by default
 set smartcase " if there are caps, go case-sensitive
 set completeopt=menu,longest,preview " improve the way autocomplete works
-set cursorcolumn " show the current column
-set cursorline
+"set cursorcolumn " show the current column
+"set cursorline
 " hi CursorLine term=underline ctermbg=008 guibg=#493a35
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

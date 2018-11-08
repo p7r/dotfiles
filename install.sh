@@ -183,6 +183,8 @@ ok
 
 # skip those GUI clients, git command-line all the way
 require_brew git
+# Except github desktop is useful
+require_cask github
 # need fontconfig to install/build fonts
 require_brew fontconfig
 # update zsh to latest

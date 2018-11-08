@@ -36,6 +36,10 @@ plugins=(rails ruby golang colorize compleat dirpersist autojump git gulp histor
 
 source $ZSH/oh-my-zsh.sh
 
+alias ccup='cd ~/code/circleci; for i in *; do; cd $i && git pull && cd ..; done'
+alias cci='cd ~/code/circleci'
+alias sz='ls -l | sort -n +3 | tail -10'
+
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \

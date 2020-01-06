@@ -1,0 +1,16 @@
+login: paul.robinson@malinkoapp.com
+endpoint: https://liquidbronze.atlassian.net/
+password-source: keyring
+custom-commands:
+  - name: weekly_active
+    help: CSV list of important fields for tickets we've worked on in last week
+    script: |
+      {{jira}} list -t csvlist --limit=2000 --queryfields="customfield_11400,customfield_11540,labels,priority,status,created,updated" --query="updatedDate >= '2019-03-15' and Impact is not EMPTY and Urgency is not EMPTY"
+  - name: weekly_inactive
+    help: CSV list of important fields for tickets we've not worked on this week
+    script: |
+      {{jira}} list -t csvlist --limit=2000 --queryfields="customfield_11400,customfield_11540,labels,priority,status,created,updated" --query="updatedDate < '2019-03-15' and resolution = Unresolved and Impact is not EMPTY and Urgency is not EMPTY"
+  - name: weekly_untagged
+    help: CSV list of tickets we've not tagged up
+    script: |
+      {{jira}} list -t debug --limit=2000 --queryfields="labels,priority,status,created,updated" --query="resolution = Unresolved and (Impact is EMPTY or Urgency is EMPTY)"

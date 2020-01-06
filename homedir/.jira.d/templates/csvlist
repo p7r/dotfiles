@@ -1,0 +1,3 @@
+"Key","Summary","Priority","Urgency","Impact","Status","Status Category","Created","Updated"
+{{ range .issues }}"{{ .key }}","{{ .fields.summary }}","{{ .fields.priority.name }}","{{ .fields.customfield_11540.value }}","{{ .fields.customfield_11400.value }}","{{ .fields.status.name }}","{{ .fields.status.statusCategory.name }}","{{ .fields.created }}","{{ .fields.updated }}"
+{{ end }}

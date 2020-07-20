@@ -195,6 +195,9 @@ RUBY_CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl` --with-readline-
 require_brew ruby
 # Golang
 require_brew golang
+# Python
+require_brew python
+require_cask anaconda
 # set zsh as the user login shell
 CURRENTSHELL=$(dscl . -read /Users/$USER UserShell | awk '{print $2}')
 if [[ "$CURRENTSHELL" != "/usr/local/bin/zsh" ]]; then
